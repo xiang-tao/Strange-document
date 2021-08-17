@@ -103,7 +103,7 @@ set cursorline
 
 
 " 鼠标暂不启用, 键盘党....
-set mouse-=a
+  set mouse-=a
 " 启用鼠标
 " set mouse=a
 " Hide the mouse cursor while typing
@@ -190,10 +190,10 @@ let g:FoldMethod = 0
 map <leader>zz :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
-        exe "normal! zM"
+        exe "normal! zc"
         let g:FoldMethod = 1
     else
-        exe "normal! zR"
+        exe "normal! zo"
         let g:FoldMethod = 0
     endif
 endfun
@@ -521,7 +521,7 @@ map dhg d1G
 if has("autocmd")
   au VimEnter,InsertLeave * silent execute '!echo -ne "\e[1 q"' | redraw!
   au InsertEnter,InsertChange *
-    \ if v:insertmode == 'i' | 
+    \ if v:insertmode == 'i' |
     \   silent execute '!echo -ne "\e[5 q"' | redraw! |
     \ elseif v:insertmode == 'r' |
     \   silent execute '!echo -ne "\e[3 q"' | redraw! |
@@ -550,7 +550,7 @@ nnoremap <leader>v V`}
 cmap w!! w !sudo tee >/dev/null %
 
 " kj 替换 Esc
-inoremap kj <Esc>
+inoremap jj <Esc>
 
 " 滚动Speed up scrolling of the viewport slightly
 nnoremap <C-e> 2<C-e>
@@ -693,5 +693,23 @@ highlight clear SpellRare
 highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
+
+"实现分屏操作：s+hjkl实现上下左右快速分屏
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sk :set nosplitbelow<CR>:split<CR>
+map sj :set splitbelow<CR>:split<CR>
+
+"实现用上下左右键控制分屏幕的大小
+map <up> :res +5<CR>
+map <down> :res -5<CR>
+map <left> :vertical resize -5<CR>
+map <right> :vertical resize +5<CR>
+
+"标签页
+map tn :tabe<CR>
+map th :-tabnext<CR>
+map tl :+tabnext<CR>
+
 
 
